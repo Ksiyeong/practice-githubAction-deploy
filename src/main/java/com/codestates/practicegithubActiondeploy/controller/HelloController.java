@@ -8,7 +8,11 @@ public class HelloController {
 
     @GetMapping("/")
 public String hello() {
-        return "Hello SIYEONG World!";
+        return "<html>\n" +
+                "<body>\n" +
+                "<h1 style=\"color: green\">Hello Siyeong World !!</h1>\n" +
+                "</body>\n" +
+                "</html>";
     }
 
 }
