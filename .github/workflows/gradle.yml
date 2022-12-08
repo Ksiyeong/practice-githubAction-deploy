@@ -49,7 +49,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
-
     # 압축한 프로젝트를 S3로 전송
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./practice-deploy.zip s3://$S3_BUCKET_NAME/practice-deploy.zip
+
+    # CodeDeploy 에게 배포 명령을 내린다
+    - name: Code Deploy
+      run: >
+        aws deploy create-deployment --application-name be-13-Ksiyeong
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --deployment-group-name be-13-Ksiyeong-group
+        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=practice-deploy.zip
